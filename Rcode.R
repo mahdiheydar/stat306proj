@@ -61,11 +61,15 @@ s.sum
 
 # 14-parameter model
 optimal_lm_14 <- lm(norm_charges~age+sex+children+smoker+region+age*smoker+bmi*smoker, data=data)
-summary(optimal_lm)
+summary(optimal_lm_14)
 
 # 13-parameter model
+new_data <- data
+new_data$region <- as.character(new_data$region)
+new_data$region[new_data$region == "northwest" | new_data$region == "northeast"] <- "north"
+new_data$region <- as.factor(new_data$region)
 optimal_lm_13 <- lm(norm_charges~age+sex+children+smoker+region+age*smoker+bmi*smoker, data=new_data)
-summary(optimal_lm_12)
+summary(optimal_lm_13)
 
 # residual plot
 pred_data = data
