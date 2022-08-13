@@ -73,16 +73,21 @@ summary(optimal_lm_13)
 
 # residual plot
 pred_data = data
-pred_data$predict = exp(optimal_lm$fitted.values)
+pred_data$predict = exp(optimal_lm_13$fitted.values)
 pred_data$diff_sq = (pred_data$charges - pred_data$predict)^2
 pred_data$diff <- pred_data$charges- pred_data$predict
-pred_data$predict_norm = optimal_lm$fitted.values
+pred_data$predict_norm = optimal_lm_13$fitted.values
 pred_data$diff_norm <- pred_data$norm_charges - pred_data$predict_norm
-plot(diff~predict, data = pred_data)
+plot(diff_norm~predict_norm, data = pred_data, xlab = "Fitted Values", ylab = "Residuals")
+title("Residual Plot of Residuals Vs. Fitted Values")
 
 # Figure.8
 coef_df <- data.frame(sort(abs(optimal_lm_13$coefficients), decreasing = TRUE))
 colnames(coef_df) <- c("AbsCoeffs")
 coef_df
+
+# Figure.9
+qqnorm(pred_data$diff_norm, frame = FALSE)
+qqline(pred_data$diff_norm, col = "steelblue", lwd = 2)
 
 
