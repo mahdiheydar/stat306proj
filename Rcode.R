@@ -71,7 +71,12 @@ new_data$region <- as.factor(new_data$region)
 optimal_lm_13 <- lm(norm_charges~age+sex+children+smoker+region+age*smoker+bmi*smoker, data=new_data)
 summary(optimal_lm_13)
 
-# residual plot
+# Figure.8
+coef_df <- data.frame(sort(abs(optimal_lm_13$coefficients), decreasing = TRUE))
+colnames(coef_df) <- c("AbsCoeffs")
+coef_df
+
+# Figure.9
 pred_data = data
 pred_data$predict = exp(optimal_lm_13$fitted.values)
 pred_data$diff_sq = (pred_data$charges - pred_data$predict)^2
@@ -79,14 +84,9 @@ pred_data$diff <- pred_data$charges- pred_data$predict
 pred_data$predict_norm = optimal_lm_13$fitted.values
 pred_data$diff_norm <- pred_data$norm_charges - pred_data$predict_norm
 plot(diff_norm~predict_norm, data = pred_data, xlab = "Fitted Values", ylab = "Residuals")
-title("Residual Plot of Residuals Vs. Fitted Values")
+title("Residual Plot of Residuals versus Fitted Values")
 
-# Figure.8
-coef_df <- data.frame(sort(abs(optimal_lm_13$coefficients), decreasing = TRUE))
-colnames(coef_df) <- c("AbsCoeffs")
-coef_df
-
-# Figure.9
+# Figure.10
 qqnorm(pred_data$diff_norm)
 qqline(pred_data$diff_norm)
 
