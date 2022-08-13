@@ -87,7 +87,7 @@ colnames(coef_df) <- c("AbsCoeffs")
 coef_df
 
 # Figure.9
-qqnorm(pred_data$diff_norm, frame = FALSE)
-qqline(pred_data$diff_norm, col = "steelblue", lwd = 2)
+qqnorm(pred_data$diff_norm)
+qqline(pred_data$diff_norm)
 
 
